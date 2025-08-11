@@ -1,0 +1,36 @@
+How to Set Up Your First React Component
+
+React is a powerful JavaScript library for building user interfaces. In this tutorial, we'll create a simple component from scratch.
+
+First, make sure you have Node.js installed on your computer. You can download it from the official website.
+
+Next, create a new React project by running this command in your terminal:
+npx create-react-app my-first-app
+
+Navigate to your project folder:
+cd my-first-app
+
+Now we'll create a simple component. Open the src folder and create a new file called Welcome.js
+
+Add this code to Welcome.js:
+import React from 'react';
+
+function Welcome() {
+  return <h1>Welcome to React!</h1>;
+}
+
+export default Welcome;
+
+To use your component, open App.js and import your Welcome component at the top:
+import Welcome from './Welcome';
+
+Replace the contents of the return statement with:
+return (
+  <div className="App">
+    <Welcome />
+  </div>
+);
+
+Save your files and run npm start to see your component in action!
+
+Your component should now display "Welcome to React!" in the browser. Congratulations, you've created your first React component!

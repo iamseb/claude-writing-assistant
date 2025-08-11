@@ -1,0 +1,24 @@
+{
+  "name": "claude-writing-assistant",
+  "version": "1.0.0",
+  "description": "Writing analysis system using Claude Code sub-agents",
+  "main": "scripts/write.py",
+  "scripts": {
+    "analyze": "python3 scripts/write.py",
+    "setup": "npm install",
+    "list-collections": "python3 scripts/write.py --list-collections",
+    "example-fiction": "python3 scripts/write.py inputs/example_story.txt",
+    "example-marketing": "python3 scripts/write.py inputs/marketing_example.txt --collection marketing",
+    "example-tutorial": "python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial",
+    "analyze-only": "python3 scripts/write.py --no-rewrite",
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-code": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["writing", "claude", "analysis", "editing"],
+  "author": "",
+  "license": "MIT"
+}

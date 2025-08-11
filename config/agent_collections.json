@@ -1,0 +1,63 @@
+{
+  "fiction": {
+    "name": "Fiction Writing",
+    "description": "Comprehensive analysis for creative fiction writing",
+    "analysis_agents": [
+      "structure", 
+      "character", 
+      "voice", 
+      "editing", 
+      "consistency"
+    ],
+    "author_agent": "fiction_author",
+    "default": true
+  },
+  "marketing": {
+    "name": "Marketing Content",
+    "description": "Analysis for marketing copy, ads, and promotional content",
+    "analysis_agents": [
+      "persuasion",
+      "audience", 
+      "clarity",
+      "brand_voice",
+      "editing"
+    ],
+    "author_agent": "marketing_author"
+  },
+  "tutorial": {
+    "name": "Tutorial & Educational",
+    "description": "Analysis for instructional and educational content",
+    "analysis_agents": [
+      "instruction_structure",
+      "clarity",
+      "audience",
+      "examples",
+      "editing"
+    ],
+    "author_agent": "tutorial_author"
+  },
+  "business": {
+    "name": "Business Writing",
+    "description": "Analysis for professional business communications",
+    "analysis_agents": [
+      "clarity",
+      "professionalism",
+      "audience",
+      "persuasion",
+      "editing"
+    ],
+    "author_agent": "business_author"
+  },
+  "technical": {
+    "name": "Technical Documentation",
+    "description": "Analysis for technical documentation and specifications",
+    "analysis_agents": [
+      "technical_accuracy",
+      "clarity",
+      "instruction_structure", 
+      "examples",
+      "editing"
+    ],
+    "author_agent": "technical_author"
+  }
+}
