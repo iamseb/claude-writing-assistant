@@ -1,166 +1,240 @@
-# Writing Assistant with Claude Code Sub-Agents
+# Claude Writing Assistant
 
-A comprehensive writing analysis system that uses specialized Claude Code sub-agents to provide targeted feedback for different types of writing - from creative fiction to marketing copy to technical documentation.
+A powerful multi-collection writing analysis and improvement system built with [Claude Code](https://claude.ai/code). Get specialized feedback for different writing styles and automatically generate improved versions of your content.
 
-## Project Structure
+## 🎯 Key Features
+
+- **Multi-Collection Architecture**: Specialized agent sets for different writing styles (fiction, marketing, tutorials, business, technical)
+- **Intelligent Analysis**: Expert agents analyze structure, character development, persuasion, clarity, and more
+- **Automated Rewriting**: Author agents synthesize all feedback to create improved versions
+- **Semantic Versioning**: Track content iterations with automatic version numbering
+- **Descriptive Output**: Easy-to-identify directory names (`TIMESTAMP_COLLECTION_FILENAME`)
+- **Flexible Workflows**: Run analysis only, full workflow, or rewrite from existing feedback
+
+## 🚀 Quick Start
+
+```bash
+# Clone and install
+git clone https://github.com/iamseb/claude-writing-assistant.git
+cd claude-writing-assistant
+npm install
+
+# See available writing collections
+npm run list-collections
+
+# Try the examples
+npm run example-fiction      # Analyze fiction writing
+npm run example-marketing    # Analyze marketing content
+npm run example-tutorial     # Analyze tutorial content
+```
+
+## 📚 Writing Collections
+
+### Fiction Writing (Default)
+Perfect for stories, novels, and creative writing.
+- **Agents**: Structure, Character, Voice, Editing, Consistency
+- **Focus**: Narrative flow, character development, prose quality
+
+### Marketing Content
+Optimized for ads, copy, and promotional content.
+- **Agents**: Persuasion, Audience, Brand Voice, Clarity, Editing
+- **Focus**: Conversion optimization, audience targeting, brand consistency
+
+### Tutorial & Educational
+Designed for instructional and educational content.
+- **Agents**: Instruction Structure, Examples, Clarity, Audience, Editing
+- **Focus**: Learning progression, practical examples, clarity
+
+### Business Writing
+For professional communications and documents.
+- **Agents**: Clarity, Professionalism, Audience, Persuasion, Editing
+- **Focus**: Professional tone, clarity, persuasive communication
+
+### Technical Documentation
+Specialized for technical docs and specifications.
+- **Agents**: Technical Accuracy, Clarity, Instruction Structure, Examples, Editing
+- **Focus**: Accuracy, completeness, usability
+
+## 💻 Usage
+
+### Basic Commands
+
+```bash
+# List all available collections
+python3 scripts/write.py --list-collections
+
+# Full workflow (analysis + rewrite) - uses fiction by default
+python3 scripts/write.py inputs/your-story.txt
+
+# Specify a collection
+python3 scripts/write.py inputs/ad-copy.txt --collection marketing
+
+# Analysis only (no rewrite)
+python3 scripts/write.py inputs/content.txt --no-rewrite
+
+# Use specific agents
+python3 scripts/write.py inputs/content.txt --collection marketing --agents persuasion clarity
+```
+
+### NPM Scripts
+
+```bash
+npm run list-collections        # Show available collections
+npm run example-fiction         # Test fiction workflow
+npm run example-marketing       # Test marketing workflow  
+npm run example-tutorial        # Test tutorial workflow
+npm run analyze-only            # Generic analysis without rewrite
+```
+
+### Advanced Workflows
+
+**Rewrite from Existing Analysis:**
+```bash
+# Generate new rewrite from previous session
+python3 scripts/write.py inputs/story.txt --rewrite-only outputs/20250811_143844_fiction_example_story
+```
+
+**Custom Agent Selection:**
+```bash
+# Marketing focus on persuasion and clarity only
+python3 scripts/write.py inputs/ad.txt --collection marketing --agents persuasion clarity
+
+# Fiction without consistency checking  
+python3 scripts/write.py inputs/story.txt --agents structure character voice editing
+```
+
+## 📁 Output Structure
+
+All analyses are saved in descriptively named directories:
 
 ```
-writer/
-├── agents/             # Individual agent directories (optional, for future use)
-│   ├── structure/
-│   ├── character/
-│   ├── voice/
-│   ├── editing/
-│   └── consistency/
-├── prompts/            # System prompts for each sub-agent
-│   ├── structure.txt
-│   ├── character.txt
-│   ├── voice.txt
-│   ├── editing.txt
-│   └── consistency.txt
-├── inputs/             # Input files to be analyzed
-│   └── example_story.txt
-├── outputs/            # Generated analysis reports (timestamped sessions)
-├── scripts/            # Orchestration scripts
-│   └── write.py
-└── README.md
+outputs/
+├── 20250811_143728_marketing_ad_copy/
+│   ├── persuasion_analysis.md           # Conversion optimization feedback
+│   ├── audience_analysis.md             # Target audience insights
+│   ├── brand_voice_analysis.md          # Brand consistency review
+│   ├── ad_copy_v0.1.0.txt              # Improved rewritten version
+│   └── session_summary.json            # Session metadata
+│
+└── 20250811_143844_fiction_example_story/
+    ├── structure_analysis.md           # Plot and pacing feedback
+    ├── character_analysis.md           # Character development insights
+    ├── voice_analysis.md               # Prose and style feedback
+    ├── example_story_v0.2.0.txt        # Improved rewritten version
+    └── session_summary.json           # Session metadata
 ```
 
-## Writing Collections
+**Directory Format**: `TIMESTAMP_COLLECTION_FILENAME`
+- Chronological ordering with timestamps
+- Clear collection identification
+- Easy content identification
 
-The system supports different collections of specialized agents for various writing styles:
-
-### Available Collections
-
-**Fiction** (default): Creative writing analysis
-- Structure, Character, Voice, Editing, Consistency agents
-- Author agent optimized for narrative improvement
-
-**Marketing**: Marketing content optimization  
-- Persuasion, Audience, Clarity, Brand Voice, Editing agents
-- Author agent focused on conversion optimization
-
-**Tutorial**: Educational content enhancement
-- Instruction Structure, Clarity, Audience, Examples, Editing agents  
-- Author agent specialized in learning effectiveness
-
-**Business**: Professional communication
-- Clarity, Professionalism, Audience, Persuasion, Editing agents
-
-**Technical**: Technical documentation
-- Technical Accuracy, Clarity, Instruction Structure, Examples, Editing agents
-
-## Agent Details
-
-### Structure Agent (`prompts/structure.txt`)
-- Analyzes narrative structure and pacing
-- Evaluates story architecture (three-act, hero's journey, etc.)
-- Identifies plot holes and structural weaknesses
-- Suggests improvements to dramatic tension and flow
-
-### Character Agent (`prompts/character.txt`)
-- Focuses on character development and authenticity
-- Analyzes character arcs and motivations
-- Evaluates dialogue for voice distinctiveness
-- Reviews character relationships and dynamics
-
-### Voice & Tone Agent (`prompts/voice.txt`)
-- Maintains consistent narrative voice
-- Evaluates prose style and rhythm
-- Ensures appropriate tone for genre and audience
-- Balances showing vs. telling
-
-### Editing Agent (`prompts/editing.txt`)
-- Provides developmental and copy editing
-- Corrects grammar, syntax, and style issues
-- Improves clarity and readability
-- Eliminates redundancies and awkward passages
-
-### Consistency Agent (`prompts/consistency.txt`)
-- Tracks continuity across all story elements
-- Identifies contradictions in plot, character, and setting
-- Ensures adherence to established story world rules
-- Maintains terminology and naming consistency
-
-### Author Agent (`prompts/author.txt`)
-- **Master rewriter** that synthesizes all specialist feedback
-- Creates improved versions incorporating analysis recommendations
-- Maintains original story essence while implementing improvements
-- Generates semantically versioned output files (e.g., `story_v0.1.0.txt`)
-- Balances competing suggestions for optimal narrative impact
-
-## Usage
+## 🛠️ Installation & Setup
 
 ### Prerequisites
-- Python 3.6+
-- Claude Code CLI installed and configured
+- **Node.js 18+** (for Claude Code CLI)
+- **Python 3.6+** (for orchestration script)
+- **Claude Code CLI** (installed automatically)
 
-### Basic Usage
+### Installation
 
-Analyze a text file with all agents:
+```bash
+# Option 1: Automated setup
+./setup.sh
+
+# Option 2: Manual setup
+npm install                    # Install Claude Code CLI
+chmod +x scripts/write.py      # Make script executable
+```
+
+### Verify Installation
+
+```bash
+# Test the system
+npm run example-fiction
+
+# Check Claude Code is working
+npx claude --help
+```
+
+## 🔧 Configuration
+
+### Agent Collections (`config/agent_collections.json`)
+
+Add new collections or modify existing ones:
+
+```json
+{
+  "custom_collection": {
+    "name": "Custom Writing Style",
+    "description": "Your custom analysis approach",
+    "analysis_agents": ["agent1", "agent2", "agent3"],
+    "author_agent": "custom_author",
+    "default": false
+  }
+}
+```
+
+### Custom Agent Prompts
+
+- **Collection-specific**: `prompts/{collection}/{agent}.txt`
+- **Shared across collections**: `prompts/shared/{agent}.txt`
+- **Author agents**: `prompts/{collection}/{collection}_author.txt`
+
+## 📖 Examples
+
+### Fiction Writing
 ```bash
 python3 scripts/write.py inputs/example_story.txt
 ```
+**Output**: Structure analysis, character development feedback, voice improvements, and a rewritten version with enhanced narrative flow.
 
-Analyze with specific agents only:
+### Marketing Copy
 ```bash
-python3 scripts/write.py inputs/marketing_example.txt --collection marketing --agents persuasion clarity
+python3 scripts/write.py inputs/marketing_example.txt --collection marketing
 ```
+**Output**: Persuasion optimization, audience targeting insights, brand voice consistency, and conversion-focused rewrite.
 
-Specify a different project root:
+### Tutorial Content
 ```bash
-python scripts/write.py /path/to/input.txt --project-root /path/to/writer/project
+python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial
 ```
+**Output**: Instructional structure analysis, example improvements, clarity enhancements, and learner-optimized rewrite.
 
-### Output
+## 🤝 Contributing
 
-The script creates descriptively named session directories in `outputs/` with format `TIMESTAMP_COLLECTION_FILENAME`:
-- Individual analysis files for each agent (e.g., `structure_analysis.md`)
-- `session_summary.json` with metadata and results
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Add new agent prompts in appropriate collection directories
+4. Test with example content
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-Example output structure:
-```
-outputs/
-└── session_20241201_143022/
-    ├── structure_analysis.md
-    ├── character_analysis.md
-    ├── voice_analysis.md
-    ├── editing_analysis.md
-    ├── consistency_analysis.md
-    └── session_summary.json
-```
+### Adding New Collections
 
-### Example Workflow
+1. Add collection config to `config/agent_collections.json`
+2. Create collection directory: `prompts/your_collection/`
+3. Add agent prompts and author agent
+4. Add example input: `inputs/your_collection_example.txt`
+5. Test and document
 
-1. Place your writing content in the `inputs/` directory
-2. Run the analysis script:
-   ```bash
-   python scripts/write.py inputs/my_story.txt
-   ```
-3. Review the generated analyses in the `outputs/TIMESTAMP_COLLECTION_FILENAME/` directory
-4. Apply the feedback to improve your writing
-5. Re-run analysis to track improvements
+## 📄 License
 
-### Customizing Agents
+MIT License - see LICENSE file for details.
 
-To modify an agent's behavior, edit the corresponding prompt file in `prompts/`:
-- `structure.txt` - Narrative structure specialist
-- `character.txt` - Character development specialist  
-- `voice.txt` - Voice and tone specialist
-- `editing.txt` - Developmental and copy editor
-- `consistency.txt` - Consistency and continuity specialist
+## 🙏 Acknowledgments
 
-## Tips
+- Built with [Claude Code](https://claude.ai/code) by Anthropic
+- Powered by Claude AI for intelligent analysis and rewriting
+- Inspired by the need for specialized writing feedback across different domains
 
-- Start with structural analysis before detailed editing
-- Use the consistency agent throughout longer works
-- Run voice analysis when switching between chapters or sections
-- The editing agent works best on relatively polished drafts
-- Consider running agents incrementally rather than all at once for large works
+## 📞 Support
 
-## Troubleshooting
+- **Issues**: [GitHub Issues](https://github.com/iamseb/claude-writing-assistant/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/iamseb/claude-writing-assistant/discussions)
+- **Documentation**: This README and inline code documentation
 
-- Ensure Claude Code CLI is properly installed and configured
-- Check that input files exist and are readable
-- Verify that all prompt files are present in the `prompts/` directory
-- Review session summary JSON for specific agent errors
+---
+
+**🤖 Generated with [Claude Code](https://claude.ai/code)**

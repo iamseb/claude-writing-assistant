@@ -10,7 +10,7 @@
     "example-fiction": "python3 scripts/write.py inputs/example_story.txt",
     "example-marketing": "python3 scripts/write.py inputs/marketing_example.txt --collection marketing",
     "example-tutorial": "python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial",
-    "analyze-only": "python3 scripts/write.py --no-rewrite",
+    "analyze-only": "python3 scripts/write.py --no-rewrite"
   },
   "dependencies": {
     "@anthropic-ai/claude-code": "latest"
