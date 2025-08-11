@@ -127,7 +127,7 @@ Provide only the rewritten text - no explanations or commentary."""
             # Run claude with the prompt using --print mode for non-interactive output
             # Pass prompt directly as argument instead of file
             result = subprocess.run([
-                'npx', 'claude',
+                'claude',
                 '--print',
                 prompt
             ], capture_output=True, text=True, check=True)

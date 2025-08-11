@@ -17,15 +17,15 @@ A powerful multi-collection writing analysis and improvement system built with [
 # Clone and install
 git clone https://github.com/iamseb/claude-writing-assistant.git
 cd claude-writing-assistant
-npm install
+./setup.sh
 
 # See available writing collections
-npm run list-collections
+python3 scripts/write.py --list-collections
 
 # Try the examples
-npm run example-fiction      # Analyze fiction writing
-npm run example-marketing    # Analyze marketing content
-npm run example-tutorial     # Analyze tutorial content
+python3 scripts/write.py inputs/example_story.txt      # Analyze fiction writing
+python3 scripts/write.py inputs/marketing_example.txt --collection marketing    # Analyze marketing content
+python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial     # Analyze tutorial content
 ```
 
 ## 📚 Writing Collections
@@ -76,14 +76,13 @@ python3 scripts/write.py inputs/content.txt --no-rewrite
 python3 scripts/write.py inputs/content.txt --collection marketing --agents persuasion clarity
 ```
 
-### NPM Scripts
+### Quick Examples
 
 ```bash
-npm run list-collections        # Show available collections
-npm run example-fiction         # Test fiction workflow
-npm run example-marketing       # Test marketing workflow  
-npm run example-tutorial        # Test tutorial workflow
-npm run analyze-only            # Generic analysis without rewrite
+python3 scripts/write.py --list-collections        # Show available collections
+python3 scripts/write.py inputs/example_story.txt         # Test fiction workflow
+python3 scripts/write.py inputs/marketing_example.txt --collection marketing       # Test marketing workflow  
+python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial        # Test tutorial workflow
 ```
 
 ### Advanced Workflows
@@ -132,7 +131,7 @@ outputs/
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
-- **Node.js 18+** (for Claude Code CLI)
+- **curl** (for Claude Code installation on macOS/Linux)
 - **Python 3.6+** (for orchestration script)
 - **Claude Code CLI** (installed automatically)
 
@@ -143,7 +142,7 @@ outputs/
 ./setup.sh
 
 # Option 2: Manual setup
-npm install                    # Install Claude Code CLI
+./setup.sh                    # Install Claude Code CLI
 chmod +x scripts/write.py      # Make script executable
 ```
 
@@ -151,10 +150,10 @@ chmod +x scripts/write.py      # Make script executable
 
 ```bash
 # Test the system
-npm run example-fiction
+python3 scripts/write.py inputs/example_story.txt
 
 # Check Claude Code is working
-npx claude --help
+claude --help
 ```
 
 ## 🔧 Configuration

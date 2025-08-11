@@ -3,7 +3,7 @@ outputs/
 *.log
 
 # Node.js dependencies
-node_modules/
+# node_modules/ (no longer needed)
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
