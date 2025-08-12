@@ -59,5 +59,17 @@
       "editing"
     ],
     "author_agent": "technical_author"
+  },
+  "executive": {
+    "name": "Executive Summary",
+    "description": "Analysis for C-suite communications and digital transformation presentations",
+    "analysis_agents": [
+      "executive_clarity",
+      "strategic_framing",
+      "decision_support",
+      "stakeholder_alignment",
+      "urgency_communication"
+    ],
+    "author_agent": "executive_author"
   }
 }

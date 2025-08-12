@@ -55,6 +55,11 @@ Specialized for technical docs and specifications.
 - **Agents**: Technical Accuracy, Clarity, Instruction Structure, Examples, Editing
 - **Focus**: Accuracy, completeness, usability
 
+### Executive Summary
+Optimized for C-suite communications and digital transformation presentations.
+- **Agents**: Executive Clarity, Strategic Framing, Decision Support, Stakeholder Alignment, Urgency Communication
+- **Focus**: Business impact, strategic positioning, executive decision-making
+
 ## 💻 Usage
 
 ### Basic Commands
@@ -83,6 +88,7 @@ python3 scripts/write.py --list-collections        # Show available collections
 python3 scripts/write.py inputs/example_story.txt         # Test fiction workflow
 python3 scripts/write.py inputs/marketing_example.txt --collection marketing       # Test marketing workflow  
 python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial        # Test tutorial workflow
+python3 scripts/write.py inputs/executive_test.txt --collection executive         # Test executive workflow
 ```
 
 ### Advanced Workflows
@@ -199,6 +205,12 @@ python3 scripts/write.py inputs/marketing_example.txt --collection marketing
 python3 scripts/write.py inputs/tutorial_example.txt --collection tutorial
 ```
 **Output**: Instructional structure analysis, example improvements, clarity enhancements, and learner-optimized rewrite.
+
+### Executive Communications
+```bash
+python3 scripts/write.py inputs/executive_test.txt --collection executive
+```
+**Output**: Executive clarity improvements, strategic framing analysis, decision support frameworks, stakeholder alignment guidance, and C-suite appropriate summary.
 
 ## 🤝 Contributing
 

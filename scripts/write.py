@@ -90,17 +90,16 @@ class WritingOrchestrator:
             return f.read()
     
     def create_agent_prompt(self, agent_name, system_prompt, user_content):
-        """Create a combined prompt for the agent."""
-        return f"""System: {system_prompt}
-
-User: Please analyze the following content according to your specialized role:
+        """Create user prompt and return both system and user components separately."""
+        user_prompt = f"""Please analyze the following content according to your specialized role:
 
 {user_content}
 
 Provide detailed feedback and specific suggestions for improvement."""
+        return system_prompt, user_prompt
     
     def create_author_prompt(self, system_prompt, original_content, feedback_files):
-        """Create a prompt for the author agent with all specialist feedback."""
+        """Create author prompt and return both system and user components separately."""
         feedback_content = ""
         for feedback_file in feedback_files:
             if feedback_file.exists():
@@ -108,9 +107,7 @@ Provide detailed feedback and specific suggestions for improvement."""
                 with open(feedback_file, 'r', encoding='utf-8') as f:
                     feedback_content += f"\n\n## {agent_name.upper()} SPECIALIST FEEDBACK:\n{f.read()}"
         
-        return f"""System: {system_prompt}
-
-User: Please rewrite the following text by incorporating the feedback from all specialist agents. Focus on creating an improved version that addresses the key issues while maintaining the original's essence.
+        user_prompt = f"""Please rewrite the following text by incorporating the feedback from all specialist agents. Focus on creating an improved version that addresses the key issues while maintaining the original's essence.
 
 ORIGINAL TEXT:
 {original_content}
@@ -118,18 +115,19 @@ ORIGINAL TEXT:
 SPECIALIST FEEDBACK:{feedback_content}
 
 Provide only the rewritten text - no explanations or commentary."""
+        return system_prompt, user_prompt
     
-    def run_claude_agent(self, agent_name, prompt, output_file):
+    def run_claude_agent(self, agent_name, system_prompt, user_prompt, output_file):
         """Run Claude Code for a specific agent."""
         print(f"Running {agent_name} agent...")
         
         try:
-            # Run claude with the prompt using --print mode for non-interactive output
-            # Pass prompt directly as argument instead of file
+            # Run claude with separate system and user prompts
             result = subprocess.run([
                 'claude',
                 '--print',
-                prompt
+                '--append-system-prompt', system_prompt,
+                user_prompt
             ], capture_output=True, text=True, check=True)
             
             # Write output to file
@@ -213,15 +211,15 @@ Provide only the rewritten text - no explanations or commentary."""
                 # Load agent's system prompt
                 system_prompt = self.load_prompt(agent_name, collection_name)
                 
-                # Create combined prompt
-                full_prompt = self.create_agent_prompt(agent_name, system_prompt, content)
+                # Create prompts
+                system_prompt, user_prompt = self.create_agent_prompt(agent_name, system_prompt, content)
                 
                 # Set output file
                 output_file = session_dir / f"{agent_name}_analysis.md"
                 feedback_files.append(output_file)
                 
                 # Run the agent
-                success = self.run_claude_agent(agent_name, full_prompt, output_file)
+                success = self.run_claude_agent(agent_name, system_prompt, user_prompt, output_file)
                 results[agent_name] = {
                     'success': success,
                     'output_file': str(output_file)
@@ -245,14 +243,14 @@ Provide only the rewritten text - no explanations or commentary."""
             system_prompt = self.load_prompt(author_agent, collection_name)
             
             # Create author prompt with all feedback
-            full_prompt = self.create_author_prompt(system_prompt, original_content, feedback_files)
+            system_prompt, user_prompt = self.create_author_prompt(system_prompt, original_content, feedback_files)
             
             # Generate version filename
             version_filename = self.get_next_version(input_file)
             output_file = session_dir / version_filename
             
             # Run the author agent
-            success = self.run_claude_agent(author_agent, full_prompt, output_file)
+            success = self.run_claude_agent(author_agent, system_prompt, user_prompt, output_file)
             
             if success:
                 print(f"✓ Rewritten version saved as: {version_filename}")
