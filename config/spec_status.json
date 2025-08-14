@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2025-08-14T09:46:21.130798",
+  "specs": {
+    "2025-08-14-sales-proposal-collection": {
+      "name": "Sales Proposal Collection",
+      "type": "collection",
+      "status": "approved",
+      "created_date": "2025-08-14",
+      "last_updated": "2025-08-14T09:46:21.130787",
+      "description": "Sales proposal writing collection for client pitches in digital transformation consulting",
+      "status_history": [
+        {
+          "from_status": "draft",
+          "to_status": "approved",
+          "timestamp": "2025-08-14T09:46:21.130794",
+          "changed_by": "sebpotter"
+        }
+      ]
+    },
+    "2025-08-14-spec-management-system": {
+      "name": "Spec Management System",
+      "type": "workflow",
+      "status": "complete",
+      "created_date": "2025-08-14",
+      "last_updated": "2025-08-14T15:30:00.000000",
+      "description": "Feature development specification management system for Agent OS"
+    }
+  }
+}
