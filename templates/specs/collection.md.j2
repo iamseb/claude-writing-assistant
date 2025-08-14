@@ -1,0 +1,30 @@
+# {{ name }} - Agent Collection Specification
+
+> Created: {{ creation_date }}
+> Type: Agent Collection
+> Status: Draft
+
+## Overview
+
+{{ description }}
+
+## Agents in Collection
+
+{% for agent in agents %}
+- **{{ agent.name }}**: {{ agent.description }}
+{% endfor %}
+
+## Use Cases
+
+{% for use_case in use_cases %}
+- {{ use_case }}
+{% endfor %}
+
+## Technical Requirements
+
+- Python compatibility: 3.8+
+- Required dependencies: {{ dependencies | join(', ') if dependencies else 'None' }}
+
+## Implementation Plan
+
+{{ implementation_plan | default('TBD') }}

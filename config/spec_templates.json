@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0",
+  "templates": {
+    "collection": {
+      "name": "Agent Collection",
+      "description": "Specification for creating new agent collections",
+      "template_file": "collection.md.j2",
+      "required_fields": [
+        "name",
+        "description",
+        "agents",
+        "use_cases"
+      ]
+    },
+    "agent": {
+      "name": "Individual Agent",
+      "description": "Specification for creating individual agents",
+      "template_file": "agent.md.j2",
+      "required_fields": [
+        "name",
+        "role",
+        "expertise",
+        "analysis_focus"
+      ]
+    },
+    "integration": {
+      "name": "External Integration",
+      "description": "Specification for external system integrations",
+      "template_file": "integration.md.j2",
+      "required_fields": [
+        "name",
+        "system_type",
+        "integration_method",
+        "security_requirements"
+      ]
+    },
+    "workflow": {
+      "name": "Workflow Enhancement",
+      "description": "Specification for process improvements and workflow changes",
+      "template_file": "workflow.md.j2",
+      "required_fields": [
+        "name",
+        "current_workflow",
+        "proposed_workflow",
+        "impact_analysis"
+      ]
+    }
+  }
+}
